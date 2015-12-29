@@ -1,4 +1,81 @@
+<script type="text/javascript">
+function activer_user(id) {
 
+  swal({
+    title: "Activer le compte pour cet Utilisateur ?",
+    text: "Le compte de cet utilisateur va être activé !",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    confirmButtonText: 'Oui, activer !',
+    closeOnConfirm: false
+  },
+  function(){
+
+    if(id==""){
+      alert("Erreur !");
+      return false;
+    } else {
+      var fiduser = id;
+    }
+    jQuery.post("modeles/ajax.php?ajax=activer_user", {
+      firstname: fiduser
+    },
+    function(data, textStatus){
+      if(data == 1){
+        swal("Activé !", "Le Compte a bien été activé !", "success");
+        setTimeout(function(){
+          location.reload();
+        },1000);
+
+      }else{
+        swal("Erreur !", "Erreur lors de l'activation !", "error");
+
+      }
+    });
+  });
+
+}
+
+function desactiver_user(id) {
+
+  swal({
+    title: "Désactiver le compte pour cet Utilisateur ?",
+    text: "Le compte de cet utilisateur va être désactivé !",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    confirmButtonText: 'Oui, désactiver !',
+    closeOnConfirm: false
+  },
+  function(){
+
+    if($('#fidtheme').val()==""){
+      alert("Erreur !");
+      return false;
+    } else {
+      var fiduser = id;
+    }
+    jQuery.post("modeles/ajax.php?ajax=desactiver_user", {
+      firstname: fiduser
+    },
+    function(data, textStatus){
+      if(data == 1){
+        swal("Activé !", "Le Compte a bien été désactivé !", "success");
+        setTimeout(function(){
+          location.reload();
+        },1000);
+
+      }else{
+        swal("Erreur !", "Erreur lors de la désactivation !", "error");
+
+      }
+    });
+  });
+
+}
+
+</script>
 
 <!-- BEGIN PAGE HEADER-->
 <div class="row-fluid">
@@ -21,6 +98,8 @@
     <!-- BEGIN PAGE TITLE & BREADCRUMB-->
     <h3 class="page-title">
       Gestion des Utilisateurs
+      <a style="color:#fff;" href="index.php?ac=gestion_users&view=add_user" class="btn btn-large btn-success" ><i class="icon-plus"></i> Nouveau</a>
+
     </h3>
 
 
@@ -37,7 +116,6 @@
       <li class="pull-right search-wrap">
 
 
-            <a style="color:#fff;" href="index.php?ac=gestion_users&view=add_user" class="btn btn-large btn-success" ><i class="icon-plus"></i> Nouveau</a>
 
 
       </li>
@@ -111,7 +189,10 @@
             <td>".$user['type_user']."</td>
             <td>";
             if ($user['etat_user']==1) {
-              echo "<span class=\"label label-success\">Actif</span><a class=\"etat pull-right\" href=\"index.php?ac=gestion_users&\"><button class=\"btn btn-inverse\"><i class=\"icon-pause\"></i></button></a>"; } else { echo "<span class=\"label label-warning\">Désactiver</span><a class=\"etat pull-right\" href=\"javascript:;\"><button class=\"btn btn-inverse\"><i class=\"icon-play\"></i></button></a>"; }
+              echo "<span class=\"label label-success\">Activé</span><button onclick=\"desactiver_user(".$user['id_user'].")\" class=\"btn btn-inverse etat pull-right\"><i class=\"icon-pause\"></i></button>";
+            } else {
+              echo "<span class=\"label label-warning\">Désactivé</span><button onclick=\"activer_user(".$user['id_user'].")\" class=\"btn btn-inverse etat pull-right\"><i class=\"icon-play\"></i></button>";
+             }
             echo "</td>
             <td><a class=\"edit\" href=\"javascript:;\"><button class=\"btn btn-warning\"><i class=\"icon-cog\"></i></button></a>
             <a  href=\"index.php?ac=gestion_users&view=fiche_user&user=".$user['id_user']."   \">
@@ -137,3 +218,6 @@
 <!-- END EXAMPLE TABLE widget-->
 </div>
 </div>
+
+
+<script src="js/editable-table.js"></script>

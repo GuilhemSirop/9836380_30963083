@@ -40,8 +40,6 @@ END FOOTER -->
 
 
 
-<script src="js/editable-table.js"></script>
-
 <script src="js/dynamic-table.js"></script>
 
 <!--common script for all pages-->

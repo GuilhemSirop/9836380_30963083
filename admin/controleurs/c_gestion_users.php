@@ -82,7 +82,7 @@ switch ($view) {
 					//on récupère la date actuelle
 					$type_user="particulier";
 
-
+					
 					$mail_existant = $connexion->compare_value_table("Users","mail_user",$mail);
 					//var_dump($login_existant);
 

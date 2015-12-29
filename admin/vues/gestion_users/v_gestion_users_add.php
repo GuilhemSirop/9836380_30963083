@@ -785,9 +785,9 @@ $(document).ready(function () {
                   <td>".$untheme['nom_theme']."</td>
                   <td>
 
-                    <button onclick=\"update_theme(".$untheme['id_theme'].",'".$untheme['nom_theme']."')\" value=\"".$untheme['id_theme']."\"  class=\"btn btn-warning\"><i class=\"icon-cog\"></i></button>
+                    <button onclick=\"update_theme(".$untheme['id_theme'].",'".$untheme['nom_theme']."')\"  class=\"btn btn-warning\"><i class=\"icon-cog\"></i></button>
 
-                  <button onclick=\"delete_theme(".$untheme['id_theme'].",'".$untheme['nom_theme']."')\" value=\"".$untheme['id_theme']."\"  class=\"btn btn-danger\"><i class=\"icon-trash\"></i></button>
+                  <button onclick=\"delete_theme(".$untheme['id_theme'].",'".$untheme['nom_theme']."')\"   class=\"btn btn-danger\"><i class=\"icon-trash\"></i></button>
 
                   </td>
                   </tr>";

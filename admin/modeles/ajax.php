@@ -23,10 +23,11 @@ switch ($ajax) {
 
 
     $id = $_POST['fid_user'];
-    $nom = $_POST['fnom_user'];
-    $prenom = $_POST['fprenom_user'];
-    $tel = $_POST['ftel_user'];
-    $mail = $_POST['fmail_user'];
+    $nom = utf8_decode($_POST['fnom_user']);
+    $prenom = utf8_decode($_POST['fprenom_user']);
+    $tel = utf8_decode($_POST['ftel_user']);
+    $mail = utf8_decode($_POST['fmail_user']);
+
 
     $requete = "update Users set nom_user=\"$nom\", prenom_user=\"$prenom\", tel1_user=\"$tel\", mail_user=\"$mail\" where id_user=\"$id\";";
     $query=mysql_query($requete);
@@ -34,14 +35,45 @@ switch ($ajax) {
     if(mysql_affected_rows()>0){
       echo "1";
     }else{
-      echo "2".$requete;
+      echo "2".$prenom;
     }
+
 
 
     break;
   }
 
+  case 'activer_user': {
+    $iduser = $_POST['firstname'];
 
+
+      $requete = "update Users set etat_user=1 where id_user=\"$iduser\";";
+      $query=mysql_query($requete) or die('0');
+      if(mysql_affected_rows()>0){
+        echo "1";
+      }else{
+        echo "0".$requete;
+      }
+break;
+  }
+
+  case 'desactiver_user': {
+    $iduser = $_POST['firstname'];
+
+
+      $requete = "update Users set etat_user=0 where id_user=\"$iduser\";";
+      $query=mysql_query($requete) or die('0');
+      if(mysql_affected_rows()>0){
+        echo "1";
+      }else{
+        echo "0".$requete;
+      }
+
+
+
+
+    break;
+  }
 
   case 'check_mail': {
     $uname=$_GET['uname'];
