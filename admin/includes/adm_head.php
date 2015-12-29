@@ -10,6 +10,7 @@
    <meta content="" name="description" />
    <meta content="Mosaddek" name="author" />
    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="assets/bootstrap/css/sweetalert.css" rel="stylesheet" />
    <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap-select.min.css">
    <link href="assets/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 
@@ -40,13 +41,16 @@
            <!-- BEGIN JAVASCRIPTS -->
            <!-- Load javascripts at bottom, this will reduce page load time -->
            <script src="js/jquery-1.8.3.min.js"></script>
+           <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+           <script src="assets/bootstrap/js/bootstrap-select.min.js"></script>
+           <script src="assets/bootstrap/js/sweetalert.min.js"></script>
+
            <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
            <script type="text/javascript" src="assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js"></script>
            <script type="text/javascript" src="assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
            <script src="assets/fullcalendar/fullcalendar/fullcalendar.min.js"></script>
 
-           <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-           <script src="assets/bootstrap/js/bootstrap-select.min.js"></script>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

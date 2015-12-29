@@ -10,6 +10,7 @@
                             </span>
                             </div>
                             <div class="widget-body">
+                                <h3 class="titreblock center"> Liste des Utilisateurs innactifs</h3>
                                 <table class="table table-striped table-bordered table-advance table-hover">
                                     <thead>
                                     <tr>

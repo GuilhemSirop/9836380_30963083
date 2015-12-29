@@ -106,7 +106,7 @@ if ($type_user == "commercial" || $type_user == "comptable" || $type_user == "te
 
 }
 // A EXECUTER UNIQUEMENT LORSQU'ON AJOUTE UN UTILISATEUR
-public function add_user_theme($idtheme) {
+ function add_user_theme($idtheme) {
     echo $query = "INSERT INTO Users_themes(id_user,id_theme) VALUES ((SELECT MAX(id_user) from Users),\"$idtheme\" ); ";
 
     $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
@@ -155,6 +155,85 @@ function is_valid_date($value, $format = 'dd-mm-yyyy'){
     }
     return false;
 }
+
+function get_field_name_of($table){
+	echo $query = "DESCRIBE $table";
+  $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+  $array = $result->fetchall();
+  return $array;
+}
+
+
+function is_in_table($table, $key, $value){
+	$i = 0;
+	while (!empty($table[$i])){
+		if ($table[$i][$key] == $value)
+			return true;
+		$i++;
+	}
+	return false;
+}
+
+function create($table, $post){
+	$champs = '(';
+	$values = '(';
+	$res = array();
+	$i = 0;
+	$field = self::get_field_name_of($table);
+	foreach($post as $key => $value){
+		if ($key != 'submit'){
+			$res[$i]['key'] = $key;
+			$res[$i]['value'] = $value;
+			$i++;
+		}
+	}
+  echo "coucou";
+	$i = 0;
+	while (!empty($res[$i])){
+		if (self::is_in_table($field, 'Field', $res[$i]['key']) && $res[$i]['key'] != 'id'){
+			$champs .= "`".$res[$i]['key']."`,";
+			$values .= "'".addslashes($res[$i]['value'])."',";
+		}
+		$i++;
+	}
+	if ($champs[strlen($champs) - 1] == ',')
+		$champs[strlen($champs) - 1] = ' ';
+	if ($values[strlen($values) - 1] == ',')
+		$values[strlen($values) - 1] = ' ';
+	$champs .= ')';
+	$values .= ')';
+	echo $query = "INSERT INTO $table $champs VALUES $values";
+	 //$result = mysql_query($query) or die($query);
+  return $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+}
+
+function update($table, $post){
+	$field = get_field_name_of($table);
+	$res = array();
+	$i = 0;
+	foreach($post as $key => $value){
+		if ($key != 'submit' && $key != 'id'){
+			$res[$i]['key'] = $key;
+			$res[$i]['value'] = $value;
+			$i++;
+		}
+	}
+	$i = 0;
+	$str='';
+	while (!empty($res[$i])){
+		if (is_in_table($field, 'Field', $res[$i]['key']) && !empty($res[$i+1]))
+				$str .= "`".$res[$i]['key']."`=\"".addslashes($res[$i]['value'])."\",";
+		if (empty($res[$i+1]))
+			if (is_in_table($field, 'Field', $res[$i]['key']))
+				$str .= $res[$i]['key']."=\"".addslashes($res[$i]['value'])."\"";
+		$i++;
+	}
+	if ($str[strlen($str) - 1] == ',')
+		$str[strlen($str) - 1] = ' ';
+	$query = "UPDATE $table SET $str WHERE id=".$post['id'];
+	return $result = mysql_query($query)or die($query);
+}
+
 
 }
 

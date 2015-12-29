@@ -35,12 +35,11 @@
         Gestion des Utilisateurs
       </li>
       <li class="pull-right search-wrap">
-        <form action="search_result.html" class="hidden-phone">
-          <div class="input-append search-input-area">
-            <input class="" id="appendedInputButton" type="text">
-            <button class="btn" type="button"><i class="icon-search"></i> </button>
-          </div>
-        </form>
+
+
+            <a style="color:#fff;" href="index.php?ac=gestion_users&view=add_user" class="btn btn-large btn-success" ><i class="icon-plus"></i> Nouveau</a>
+
+
       </li>
     </ul>
     <!-- END PAGE TITLE & BREADCRUMB-->
@@ -67,7 +66,7 @@
             Ajouter un nouveau <i class="icon-plus"></i>
           </button>
         </div> -->
-        <h3 class="pull-left"> Voici l'ensemble des utilisateurs </h3>
+        <h3 class="titreblock center"> Ensemble des Utilisateurs </h3>
         <div class="btn-group pull-right">
           <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Outils <i class="icon-angle-down"></i>
           </button>

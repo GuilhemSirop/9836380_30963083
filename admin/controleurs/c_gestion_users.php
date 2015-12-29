@@ -349,4 +349,33 @@ switch ($view) {
 
 		break;
 	}
+
+	case 'add_a_theme': {
+
+		if (!empty($_POST['nom_theme'])){
+			$titre=$_POST['nom_theme'];
+			$titre_existant=$connexion->compare_value_table("Themes","nom_theme",$titre);
+			if ($titre_existant['result'] == 0) {
+			$ajout_theme=$connexion->create("Themes",$_POST);
+		
+
+				//$ajout_theme=$connexion->create("Themes","nom_theme",$titre);
+				?>
+				<script type="text/javascript">location.href = 'index.php?ac=gestion_users&view=add_user'</script>
+				<?php
+				//include('vues/gestion_users/v_gestion_users_add.php');
+			}
+			else {
+				$erreur_theme= "Ce nom est déjà utilisé !";
+				include('vues/gestion_users/v_gestion_users_add.php');
+			}
+		}
+		else {
+			$erreur_theme= "Le nom est vide !";
+			include('vues/gestion_users/v_gestion_users_add.php');
+		}
+		break;
+	}
+
+
 }

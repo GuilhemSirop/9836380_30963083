@@ -14,3 +14,17 @@ label.btn.btn-info.btn-option {
 .center {
     text-align: center;
 }
+
+
+h3.titreblock {
+  color: #000;
+background: #444;
+box-shadow: 1px 1px 10px #969696 inset,0 1px 0 rgba(255,255,255,0.4);
+background: -webkit-linear-gradient(#FFFFFF,#E2E2E2);
+background: -moz-linear-gradient(#FFFFFF,#E2E2E2);
+background: -ms-linear-gradient(#FFFFFF,#E2E2E2);
+background: -o-linear-gradient(#FFFFFF,#E2E2E2);
+background: linear-gradient(#FFFFFF,#E2E2E2);
+border-radius: 3px;
+padding: 8px;
+}
