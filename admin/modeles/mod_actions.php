@@ -80,7 +80,7 @@ public function add_user($type_user,$nom,$prenom,$mdp,$adresse,$cp,$ville,$tel1,
   if ($type_user == "particulier") {
      $query = "INSERT INTO Users(nom_user,prenom_user,pass_user,adresse,code_postale,ville,tel1_user,tel2_user,mail_user,newsletter_user,com_visible,com_masque,type_user,etat_user,date_inscription) VALUES (\"$nom\",\"$prenom\",\"$mdp\",\"$adresse\",\"$cp\",\"$ville\",\"$tel1\",\"$tel2\",\"$mail\",\"$newsletter\",\"$com_visible\",\"$com_masque\",\"$type_user\",\"$etat_user\",now() ); INSERT INTO User_Particulier (id_user) VALUES ((select max(id_user) from Users));";
 
-    $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+    $result = mod_actions::$monPDO->query($query) or die ("0");
 
   }
   if (($type_user == "entreprise") || ($type_user == "comite")) {
@@ -100,7 +100,7 @@ public function add_user_admin($type_user,$nom,$prenom,$mdp,$mail,$com_visible,$
 if ($type_user == "commercial" || $type_user == "comptable" || $type_user == "technique" || $type_user == "direction") {
   echo $query = "INSERT INTO Users(nom_user,prenom_user,pass_user,mail_user,com_visible,type_user,etat_user,date_inscription) VALUES (\"$nom\",\"$prenom\",\"$mdp\",\"$mail\",\"$com_visible\",\"$type_user\",\"$etat_user\",now() );INSERT INTO User_Admin (id_user, direction,commercial,technique,comptable) VALUES ((SELECT MAX(id_user) FROM Users), \"$type_direction\",\"$type_commercial\",\"$type_technique\",\"$type_comptable\");";
 
-  $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+  $result = mod_actions::$monPDO->query($query) or die ("0");
 
 }
 
@@ -120,8 +120,8 @@ function dateToFr($date){
 }
 
 function compare_value_table($table,$champ,$value){
-  echo $query = "SELECT COUNT($champ) AS result  FROM $table WHERE $champ=\"$value\";";
-	$result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+  $query = "SELECT COUNT($champ) AS result  FROM $table WHERE $champ=\"$value\";";
+	$result = mod_actions::$monPDO->query($query) or die ("0");
   //Si il y a un resultat
   $array = $result->fetch();
   return $array;
@@ -157,8 +157,8 @@ function is_valid_date($value, $format = 'dd-mm-yyyy'){
 }
 
 function get_field_name_of($table){
-	echo $query = "DESCRIBE $table";
-  $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+	$query = "DESCRIBE $table";
+  $result = mod_actions::$monPDO->query($query) or die ("0");
   $array = $result->fetchall();
   return $array;
 }
@@ -202,9 +202,10 @@ function create($table, $post){
 		$values[strlen($values) - 1] = ' ';
 	$champs .= ')';
 	$values .= ')';
-	echo $query = "INSERT INTO $table $champs VALUES $values";
+	$query = "INSERT INTO $table $champs VALUES $values";
 	 //$result = mysql_query($query) or die($query);
-  return $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+  return $result = mod_actions::$monPDO->query($query) or die ("0");
+
 }
 
 function update($table, $post){

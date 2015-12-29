@@ -114,8 +114,8 @@ switch ($view) {
 
 						}
 
-				}
-				else {
+					}
+					else {
 						$erreur= "Cet eMail est déjà utilisé !";
 						include('vues/gestion_users/v_gestion_users_add.php');
 
@@ -190,7 +190,7 @@ switch ($view) {
 
 					if ($mail_existant['result'] == 0) {
 
-					// Si le mail n'existe pas, c'est à dire qu'il n'a pas compter de champs login avec cette valeur
+						// Si le mail n'existe pas, c'est à dire qu'il n'a pas compter de champs login avec cette valeur
 						//on teste si les deux mot de passes sont identiques
 						if ($mdp1 == $mdp2) {
 							//on ajoute l'utilisateur Particulier
@@ -208,135 +208,21 @@ switch ($view) {
 							// On renvoi à l'interface de gestion des Utilisateurs
 							?>
 							<!--<script type="text/javascript">location.href = 'index.php?ac=gestion_users'</script>
-							--><?php
-
-						}
-						else {
-							$erreur= "Les deux mots de passe ne sont pas identiques";
-							include('vues/gestion_users/v_gestion_users_add.php');
-
-						}
-
-				}
-				else {
-						$erreur= "Cet eMail est déjà utilisé !";
-						include('vues/gestion_users/v_gestion_users_add.php');
-
-					}
-
-
-				}
-				else {
-					$erreur= "Les champs obligatoires mentionnés par (*) ne sont pas tous remplis";
-					include('vues/gestion_users/v_gestion_users_add.php');
-				}
-
-			}
-			else {
-				$erreur= "Les champs obligatoires mentionnés par (*) ne sont pas tous remplis";
-				include('vues/gestion_users/v_gestion_users_add.php');
-			}
-
-		}
-
-
-
-		// SI ON VALIDE LE FORMULAIRE ADMIN
-		if (isset($_POST['submit_admin'])){
-			if (isset ($_POST['type_user']) && !empty($_POST['nom'])  && !empty($_POST['prenom']) && !empty($_POST['mail'])   && !empty($_POST['mdp1']) && !empty($_POST['mdp2'])  ) {
-				echo "ok";
-
-					$nom = $_POST["nom"];
-					$prenom = $_POST["prenom"];
-					$mail = $_POST["mail"];
-					$mdp1 = sha1($_POST["mdp1"]);
-					$mdp2 = sha1($_POST["mdp2"]);
-					$com_visible = $_POST["com_visible"];
-					$type_user = $_POST['type_user'];
-
-
-					//Si l'utilisateur est activé
-					if (isset($_POST["etat_user"]) && $_POST["etat_user"]==1){
-						$etat_user = $_POST["etat_user"];
+						--><?php
 
 					}
 					else {
-						$etat_user = 0;
-					}
-
-
-					//on récupère le type d'utilisateur
-					switch ($type_user) {
-				    // on affiche l'accueil, on teste si la variable SESSION utilisateur est renseigné
-				    case 'commercial': {
-							$type_commercial = 1;
-							$type_technique = 0;
-							$type_comptable = 0;
-							$type_direction = 0;
-				      break;
-				    }
-						case 'technique': {
-							$type_commercial = 0;
-							$type_technique = 1;
-							$type_comptable = 0;
-							$type_direction = 0;
-				      break;
-				    }
-						case 'comptable': {
-							$type_commercial = 0;
-							$type_technique = 0;
-							$type_comptable = 1;
-							$type_direction = 0;
-				      break;
-				    }
-						case 'direction': {
-							$type_commercial = 0;
-							$type_technique = 0;
-							$type_comptable = 0;
-							$type_direction = 1;
-				      break;
-				    }
-					}
-
-
-
-
-					//On teste si le mail existe déjà
-					$mail_existant = $connexion->compare_value_table("Users","mail_user",$mail);
-					//var_dump($login_existant);
-
-					// Si le mail n'existe pas, c'est à dire qu'il n'a pas compter de champs login avec cette valeur
-					if ($mail_existant['result'] == 0) {
-
-						//on teste si les deux mot de passes sont identiques
-						if ($mdp1 == $mdp2) {
-
-
-
-							//on ajoute l'utilisateur Admin
-							$ajout_user = $connexion->add_user_admin($type_user,$nom,$prenom,$mdp2,$mail,$com_visible,$etat_user,$type_direction,$type_commercial,$type_technique,$type_comptable);
-							var_dump($ajout_user);
-
-							// On renvoi à l'interface de gestion des Utilisateurs
-							?>
-							<!--<script type="text/javascript">location.href = 'index.php?ac=gestion_users'</script>
-							--><?php
-
-						}
-						else {
-							$erreur= "Les deux mots de passe ne sont pas identiques";
-							include('vues/gestion_users/v_gestion_users_add.php');
-
-						}
-
-				}
-				else {
-						$erreur= "Cet eMail est déjà utilisé !";
+						$erreur= "Les deux mots de passe ne sont pas identiques";
 						include('vues/gestion_users/v_gestion_users_add.php');
 
 					}
 
+				}
+				else {
+					$erreur= "Cet eMail est déjà utilisé !";
+					include('vues/gestion_users/v_gestion_users_add.php');
 
+				}
 
 
 			}
@@ -344,20 +230,139 @@ switch ($view) {
 				$erreur= "Les champs obligatoires mentionnés par (*) ne sont pas tous remplis";
 				include('vues/gestion_users/v_gestion_users_add.php');
 			}
+
+		}
+		else {
+			$erreur= "Les champs obligatoires mentionnés par (*) ne sont pas tous remplis";
+			include('vues/gestion_users/v_gestion_users_add.php');
+		}
+
+	}
+
+
+
+	// SI ON VALIDE LE FORMULAIRE ADMIN
+	if (isset($_POST['submit_admin'])){
+		if (isset ($_POST['type_user']) && !empty($_POST['nom'])  && !empty($_POST['prenom']) && !empty($_POST['mail'])   && !empty($_POST['mdp1']) && !empty($_POST['mdp2'])  ) {
+			echo "ok";
+
+			$nom = $_POST["nom"];
+			$prenom = $_POST["prenom"];
+			$mail = $_POST["mail"];
+			$mdp1 = sha1($_POST["mdp1"]);
+			$mdp2 = sha1($_POST["mdp2"]);
+			$com_visible = $_POST["com_visible"];
+			$type_user = $_POST['type_user'];
+
+
+			//Si l'utilisateur est activé
+			if (isset($_POST["etat_user"]) && $_POST["etat_user"]==1){
+				$etat_user = $_POST["etat_user"];
+
+			}
+			else {
+				$etat_user = 0;
+			}
+
+
+			//on récupère le type d'utilisateur
+			switch ($type_user) {
+				// on affiche l'accueil, on teste si la variable SESSION utilisateur est renseigné
+				case 'commercial': {
+					$type_commercial = 1;
+					$type_technique = 0;
+					$type_comptable = 0;
+					$type_direction = 0;
+					break;
+				}
+				case 'technique': {
+					$type_commercial = 0;
+					$type_technique = 1;
+					$type_comptable = 0;
+					$type_direction = 0;
+					break;
+				}
+				case 'comptable': {
+					$type_commercial = 0;
+					$type_technique = 0;
+					$type_comptable = 1;
+					$type_direction = 0;
+					break;
+				}
+				case 'direction': {
+					$type_commercial = 0;
+					$type_technique = 0;
+					$type_comptable = 0;
+					$type_direction = 1;
+					break;
+				}
+			}
+
+
+
+
+			//On teste si le mail existe déjà
+			$mail_existant = $connexion->compare_value_table("Users","mail_user",$mail);
+			//var_dump($login_existant);
+
+			// Si le mail n'existe pas, c'est à dire qu'il n'a pas compter de champs login avec cette valeur
+			if ($mail_existant['result'] == 0) {
+
+				//on teste si les deux mot de passes sont identiques
+				if ($mdp1 == $mdp2) {
+
+
+
+					//on ajoute l'utilisateur Admin
+					$ajout_user = $connexion->add_user_admin($type_user,$nom,$prenom,$mdp2,$mail,$com_visible,$etat_user,$type_direction,$type_commercial,$type_technique,$type_comptable);
+					var_dump($ajout_user);
+
+					// On renvoi à l'interface de gestion des Utilisateurs
+					?>
+					<!--<script type="text/javascript">location.href = 'index.php?ac=gestion_users'</script>
+				--><?php
+
+			}
+			else {
+				$erreur= "Les deux mots de passe ne sont pas identiques";
+				include('vues/gestion_users/v_gestion_users_add.php');
+
+			}
+
+		}
+		else {
+			$erreur= "Cet eMail est déjà utilisé !";
+			include('vues/gestion_users/v_gestion_users_add.php');
+
 		}
 
 
-		break;
+
+
 	}
+	else {
+		$erreur= "Les champs obligatoires mentionnés par (*) ne sont pas tous remplis";
+		include('vues/gestion_users/v_gestion_users_add.php');
+	}
+}
 
-	case 'add_a_theme': {
 
-		if (!empty($_POST['nom_theme'])){
-			$titre=$_POST['nom_theme'];
+break;
+}
+
+case 'add_a_theme': {
+
+	if (!empty($_POST['nom_theme'])){
+		$titre=htmlspecialchars($_POST['nom_theme']);
+		//$titre=strtr($titre);
+		// Si le titre est formé uniquement de bons caractère
+		if(preg_match('#^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]*$#', $titre)){
+
 			$titre_existant=$connexion->compare_value_table("Themes","nom_theme",$titre);
 			if ($titre_existant['result'] == 0) {
-			$ajout_theme=$connexion->create("Themes",$_POST);
-		
+				$ajout_theme=$connexion->create("Themes",$_POST);
+
+				//var_dump($ajout_theme);
 
 				//$ajout_theme=$connexion->create("Themes","nom_theme",$titre);
 				?>
@@ -369,13 +374,24 @@ switch ($view) {
 				$erreur_theme= "Ce nom est déjà utilisé !";
 				include('vues/gestion_users/v_gestion_users_add.php');
 			}
+
 		}
 		else {
-			$erreur_theme= "Le nom est vide !";
+
+			$erreur_theme= "Seul les caractères alpha-numérique et le _ sont acceptés !";
 			include('vues/gestion_users/v_gestion_users_add.php');
+			//Si tout est OK on enrégistre le pseudo
+
 		}
-		break;
+
 	}
+
+	else {
+		$erreur_theme= "Le nom est vide !";
+		include('vues/gestion_users/v_gestion_users_add.php');
+	}
+	break;
+}
 
 
 }
