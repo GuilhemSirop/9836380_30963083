@@ -7,7 +7,7 @@
 
 $connection = mysql_connect('localhost', 'root', 'root')
 or die("Erreur connexion");
-$db = mysql_select_db('billeterie_V2', $connection)
+$db = mysql_select_db('billeterie_V3', $connection)
 or die("Erreur connexion");
 
 //On teste si le paramètre uc n'est renseigné

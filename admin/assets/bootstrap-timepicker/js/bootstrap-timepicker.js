@@ -746,7 +746,7 @@
                     template = '<div class="bootstrap-timepicker modal hide fade in" style="top: 30%; margin-top: 0; width: 200px; margin-left: -100px;" data-backdrop="'+ (this.modalBackdrop ? 'true' : 'false') +'">'+
                                    '<div class="modal-header">'+
                                        '<a href="#" class="close" data-dismiss="modal">×</a>'+
-                                       '<h3>Pick a Time</h3>'+
+                                       '<h3>Choisissez une heure</h3>'+
                                    '</div>'+
                                    '<div class="modal-content">'+
                                         templateContent +

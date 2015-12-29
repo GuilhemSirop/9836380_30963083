@@ -1,6 +1,6 @@
 <?php
 class mod_actions {
-  private static $source = "mysql:host=localhost;dbname=billeterie_V2";
+  private static $source = "mysql:host=localhost;dbname=billeterie_V3";
   private static $utilisateur = "root";
   private static $mot_de_passe = "root";
 

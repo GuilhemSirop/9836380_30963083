@@ -30,7 +30,7 @@
 					$id_event=$_REQUEST['event'];
           $event = $connexion->get("Evenements", "id", $id_event);
 					if (!empty ($event)){
-						
+
 						include ("vues/gestion_events/v_gestion_events_fiche.php");
 					}
 					else {
@@ -43,4 +43,50 @@
 
         break;
       }
+
+
+
+
+
+			case 'add_a_theme': {
+
+				if (!empty($_POST['nom_theme'])){
+					$titre=htmlspecialchars($_POST['nom_theme']);
+					//$titre=strtr($titre);
+					// Si le titre est formé uniquement de bons caractère
+					if(preg_match('#^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]*$#', $titre)) {
+
+						$titre_existant=$connexion->compare_value_table("Themes","nom_theme",$titre);
+						if ($titre_existant['result'] == 0) {
+							$ajout_theme=$connexion->create("Themes",$_POST);
+
+							//var_dump($ajout_theme);
+							$success_theme= "Le thème à été correctement ajouter !";
+							//$ajout_theme=$connexion->create("Themes","nom_theme",$titre);
+							include('vues/gestion_events/v_gestion_events_add.php');
+							//include('vues/gestion_users/v_gestion_users_add.php');
+						}
+						else {
+							$erreur_theme= "Ce nom est déjà utilisé !";
+							include('vues/gestion_events/v_gestion_events_add.php');
+						}
+
+					}
+					else {
+
+						$erreur_theme= "Seul les caractères alpha-numérique et le _ sont acceptés !";
+						include('vues/gestion_events/v_gestion_events_add.php');
+						//Si tout est OK on enrégistre le pseudo
+
+					}
+
+				}
+
+				else {
+					$erreur_theme= "Le nom est vide !";
+					include('vues/gestion_events/v_gestion_events_add.php');
+				}
+				break;
+			}
+
     }
