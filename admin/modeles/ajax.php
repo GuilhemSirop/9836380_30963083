@@ -82,15 +82,23 @@ switch ($ajax) {
 
   case 'update_theme': {
     $idtheme = $_POST['firstname'];
-    $nomtheme = $_POST['fnomtheme'];
-        $requete = "update Themes set nom_theme=\"$nomtheme\" where id_theme=\"$idtheme\";";
-        $query=mysql_query($requete) or die('0');
+    $nomtheme =  utf8_decode($_POST['fnomtheme']);
+    if(preg_match('#^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]*$#', $_POST['fnomtheme'])){
+      $requete = "update Themes set nom_theme=\"$nomtheme\" where id_theme=\"$idtheme\";";
+      $query=mysql_query($requete) or die('0');
+      if(mysql_affected_rows()>0){
+        echo "1";
+      }else{
+        echo "0";
+      }
 
-    if(mysql_affected_rows()>0){
-      echo "1";
-    }else{
+    }
+    else {
       echo "0";
     }
+
+
+
     break;
   }
 

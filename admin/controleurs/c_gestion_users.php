@@ -356,7 +356,7 @@ case 'add_a_theme': {
 		$titre=htmlspecialchars($_POST['nom_theme']);
 		//$titre=strtr($titre);
 		// Si le titre est formé uniquement de bons caractère
-		if(preg_match('#^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]*$#', $titre)){
+		if(preg_match('#^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]*$#', $titre)) {
 
 			$titre_existant=$connexion->compare_value_table("Themes","nom_theme",$titre);
 			if ($titre_existant['result'] == 0) {

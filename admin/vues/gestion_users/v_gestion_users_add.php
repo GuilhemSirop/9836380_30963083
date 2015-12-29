@@ -47,6 +47,7 @@ function update_theme(id,nom) {
       closeOnConfirm: false,
       animation: "slide-from-top",
       inputPlaceholder: "Ex: +262 6 92 123 123",
+       // JSON
       inputValue: nom },
   function(inputValue){
       if (inputValue === false)
@@ -62,6 +63,7 @@ function update_theme(id,nom) {
   var fidtheme = id;
 
   jQuery.post("modeles/ajax.php?ajax=update_theme", {
+
     firstname: fidtheme,
     fnomtheme: fnomtheme
   },
