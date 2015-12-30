@@ -62,30 +62,56 @@
 
       <!-- contenu de mon module -->
       <div class="widget-body">
+        <?php if (isset($erreur)){ ?>
+          <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">×</button>
+            <h4 class="alert-heading">Erreur !</h4>
+            <?php
+            foreach ($erreur as $uneerreur) { ?>
+              <p>
+                <?php echo $uneerreur; ?>
+              </p>
+          <?php  }  ?>
+          </div>
+          <?php } if (isset($success)){ ?>
+            <div class="alert alert-block alert-success fade in">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <h4 class="alert-heading">Enregistré !</h4>
+              <?php foreach ($success as $unsuccess) { ?>
+                <p>
+                  <?php echo $unsuccess; ?>
+                </p>
+            <?php  }  ?>
 
+
+
+            </div>
+            <?php } ?>
 
         <div class="frm_ajout_event">
-          <form method="post" action="#" id="contactform">
+          <form enctype="multipart/form-data" method="POST" action="index.php?ac=gestion_events&view=add_new_event&action=add_a_event" id="contactform">
 
-            <div class="center">
-              <h3 class="titreblock">Informations Générales </h3>
 
+              <h3 class="titreblock center">Informations Générales</h3>
+              <p>(<strong style="color:red">*</strong>) Veuillez renseigner tous les champs mentionnés par cette indication. </p>
+
+              <div class="center">
               <div class="controls">
                 <div class="input-prepend">
-                  <span class="add-on">Nom</span><input required="required" class=" " type="text" placeholder="...">
+                  <span class="add-on">Nom<strong style="color:red">*</strong></span><input required="required" name="nom" class=" " type="text" placeholder="...">
                 </div>
               </div>
 
             </div>
-            <h3>Description de l'événement : </h3>
-            <p> *Sera affiché dans la page de l'événement concerné</p>
-            <textarea id="event_description" name="descriptioncontent" style=" height: 100%; width: 100%;"></textarea>
+            <h3>Description de l'événement<strong style="color:red">*</strong> : </h3>
+            <p> *Correspond au texte présent sur la page de l'évènement</p>
+            <textarea id="event_description" name="description_1" style=" height: 100%; width: 100%;"></textarea>
             <br>
-            <h3>Description courte  : </h3>
-            <p> *Sera affiché dans la description de la Liste des Évènements</p>
+            <h3>Description courte<strong style="color:red">*</strong>  : </h3>
+            <p> *Correspond au texte descriptif de l'évènement présent sur la page Agenda</p>
             <div class="control-group">
               <div class="controls">
-                <textarea class="input-xlarge" rows="3"></textarea>
+                <textarea name="description_2" class="input-xlarge" rows="3"></textarea>
               </div>
             </div>
 
@@ -106,8 +132,8 @@
 
 
 
-          <h3>Domaine d'activité : </h3>
-          <select data-live-search="true" name="domaine_activite" title="Choisissez..." class="selectpicker">
+          <h3>Domaine d'activité<strong style="color:red">*</strong> : </h3>
+          <select data-live-search="true" name="domaine" title="Choisissez..." class="selectpicker">
 
             <?php
             $domaines_activites = $connexion->gets_without_option("Domaines_Activites");
@@ -125,8 +151,8 @@
           </select>
           <hr>
 
-          <h3 class="center">Les thèmes concernés : </h3>
-
+          <h3 class="center">Les thèmes concernés<strong style="color:red">*</strong> : </h3>
+<p>(<strong style="color:red">*</strong>) Choisissez au moins un thème </p>
           <div class="control-group">
 
             <!-- On récupère tout les thèmes existants -->
@@ -163,7 +189,8 @@
                 <div>
                   <span class="btn btn-file"><span class="fileupload-new">Choisir une image</span>
                   <span class="fileupload-exists">Modifier</span>
-                  <input type="file" class="default"></span>
+                  <input type="file" name="img_newsletter" >
+                </span>
                   <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Enlever</a>
                 </div>
               </div>
@@ -184,40 +211,40 @@
             <tbody>
               <tr>
                 <td><div class="control-group ">
-                  <label class="control-label">Date de début </label>
+                  <label class="control-label">Date de début<strong style="color:red">*</strong> </label>
 
                   <div class="controls">
-                    <input id="dp1" type="text" name="date_debut_ev" value="<?php echo date("j-n-Y");  ?>" size="16" class="m-ctrl-medium">
+                    <input required="required" id="dp1" type="text" name="date_debut_ev" value="<?php echo date("j-n-Y");  ?>" size="16" class="m-ctrl-medium">
                   </div>
 
 
                 </div></td>
                 <td>  <div class="control-group">
-                  <label class="control-label">Date de Fin </label>
+                  <label class="control-label">Date de Fin<strong style="color:red">*</strong> </label>
 
                   <div class="controls">
-                    <input id="dp2" type="text" name="date_fin_ev" value="<?php echo date("j-n-Y");  ?>" size="16" class="m-ctrl-medium">
+                    <input required="required" id="dp2" type="text" name="date_fin_ev" value="<?php echo date("j-n-Y");  ?>" size="16" class="m-ctrl-medium">
                   </div>
                 </div></td>
 
               </tr>
               <tr>
                 <td><div class="control-group ">
-                  <label class="control-label">Heure de début</label>
+                  <label class="control-label">Heure de début<strong style="color:red">*</strong></label>
 
                   <div class="controls">
                     <div class="input-append bootstrap-timepicker">
-                      <input id="timepicker1" type="text" class="input-small">
+                      <input required="required" id="timepicker1" value="00:00:00" name="heure_debut_ev" type="text" class="input-small">
                       <span class="add-on"> <i class="icon-time"></i></span>
                     </div>
                   </div>
                 </div></td>
                 <td><div class="control-group ">
-                  <label class="control-label">Heure de Fin</label>
+                  <label class="control-label">Heure de Fin<strong style="color:red">*</strong></label>
 
                   <div class="controls">
                     <div class="input-append bootstrap-timepicker">
-                      <input id="timepicker2" type="text" class="input-small">
+                      <input required="required" id="timepicker2" value="00:00:00" name="heure_fin_ev" type="text" class="input-small">
                       <span class="add-on"> <i class="icon-time"></i></span>
                     </div>
                   </div>
@@ -243,40 +270,40 @@
             <tbody>
               <tr>
                 <td><div class="control-group ">
-                  <label class="control-label">Date d'ouverture </label>
+                  <label class="control-label">Date d'ouverture<strong style="color:red">*</strong> </label>
 
                   <div class="controls">
-                    <input id="dp3" type="text" name="date_debut_res" value="<?php echo date("j-n-Y");  ?>" size="16" class="m-ctrl-medium">
+                    <input required="required" id="dp3" type="text" name="date_debut_res" value="<?php echo date("j-n-Y");  ?>" size="16" class="m-ctrl-medium">
                   </div>
 
 
                 </div></td>
                 <td>  <div class="control-group">
-                  <label class="control-label">Date de fermeture </label>
+                  <label class="control-label">Date de fermeture<strong style="color:red">*</strong> </label>
 
                   <div class="controls">
-                    <input id="dp4" type="text" name="date_fin_res" value="<?php echo date("j-n-Y");  ?>" size="16" class="m-ctrl-medium">
+                    <input required="required" id="dp4" type="text" name="date_fin_res" value="<?php echo date("j-n-Y");  ?>" size="16" class="m-ctrl-medium">
                   </div>
                 </div></td>
 
               </tr>
               <tr>
                 <td><div class="control-group ">
-                  <label class="control-label">Heure d'ouverture</label>
+                  <label class="control-label">Heure d'ouverture<strong style="color:red">*</strong></label>
 
                   <div class="controls">
                     <div class="input-append bootstrap-timepicker">
-                      <input id="timepicker3" type="text" class="input-small">
+                      <input required="required" id="timepicker3" value="00:00:00" name="heure_debut_res" type="text" class="input-small">
                       <span class="add-on"> <i class="icon-time"></i></span>
                     </div>
                   </div>
                 </div></td>
                 <td><div class="control-group ">
-                  <label class="control-label">Heure de fermeture</label>
+                  <label class="control-label">Heure de fermeture<strong style="color:red">*</strong></label>
 
                   <div class="controls">
                     <div class="input-append bootstrap-timepicker">
-                      <input id="timepicker4" type="text" class="input-small">
+                      <input required="required" id="timepicker4" value="00:00:00" name="heure_fin_res" type="text" class="input-small">
                       <span class="add-on"> <i class="icon-time"></i></span>
                     </div>
                   </div>
@@ -293,11 +320,11 @@
 
 
           <div class="control-group center ">
-            <label class="control-label">Nombre d'entrées maximum</label>
+            <label class="control-label">Nombre d'entrées maximum<strong style="color:red">*</strong></label>
 
             <div class="controls">
               <div class="input-prepend">
-                <input name="nb_entrees" type="number" class="input-small">
+                <input required="required" name="nb_entrees" value="100" type="number" class="input-small">
                 <span class="add-on"> <i class="icon-ticket"></i></span>
               </div>
             </div>
@@ -318,33 +345,33 @@
             <tbody>
               <tr>
 
-                <td><h4>Particuliers</h4></td>
+                <td><h4>Particuliers<strong style="color:red">*</strong></h4></td>
                 <td>  <div class="control-group">
 
                   <div class="controls">
-                    <input  type="number" step="0.01" name="prix_particulier" value="20.00" size="16" class="m-ctrl-medium">
+                    <input  required="required" type="number" step="0.01" name="prix_particulier" value="20.00" size="16" class="m-ctrl-medium">
                   </div>
                 </div></td>
 
               </tr>
               <tr>
 
-                <td><h4>Entreprises</h4></td>
+                <td><h4>Entreprises<strong style="color:red">*</strong></h4></td>
                 <td>  <div class="control-group">
 
                   <div class="controls">
-                    <input  type="number" step="0.01" name="prix_particulier" value="20.00" size="16" class="m-ctrl-medium">
+                    <input  required="required" type="number" step="0.01" name="prix_entreprise" value="20.00" size="16" class="m-ctrl-medium">
                   </div>
                 </div></td>
 
               </tr>
               <tr>
 
-                <td><h4>Comités d'entreprises</h4></td>
+                <td><h4>Comités d'entreprises<strong style="color:red">*</strong></h4></td>
                 <td>  <div class="control-group">
 
                   <div class="controls">
-                    <input  type="number" step="0.01" name="prix_particulier" value="20.00" size="16" class="m-ctrl-medium">
+                    <input required="required" type="number" step="0.01" name="prix_comite" value="20.00" size="16" class="m-ctrl-medium">
                   </div>
                 </div></td>
 
@@ -374,7 +401,7 @@
               <div>
                 <span class="btn btn-file"><span class="fileupload-new">Choisir une image</span>
                 <span class="fileupload-exists">Modifier</span>
-                <input type="file" class="default"></span>
+                <input type="file" name="img_1" class="default"></span>
                 <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Enlever</a>
               </div>
             </div>
@@ -391,8 +418,8 @@
               <div>
                 <span class="btn btn-file"><span class="fileupload-new">Choisir une image</span>
                 <span class="fileupload-exists">Modifier</span>
-                <input type="file" class="default"></span>
-                <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Enlever</a>
+                <input type="file" name="img_2" class="default"></span>
+                <a data-dismiss="fileupload"  class="btn fileupload-exists" href="#">Enlever</a>
               </div>
             </div>
 
@@ -410,7 +437,7 @@
               <div>
                 <span class="btn btn-file"><span class="fileupload-new">Choisir une image</span>
                 <span class="fileupload-exists">Modifier</span>
-                <input type="file" class="default"></span>
+                <input type="file" name="img_3" class="default"></span>
                 <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Enlever</a>
               </div>
             </div>
@@ -427,7 +454,7 @@
               <div>
                 <span class="btn btn-file"><span class="fileupload-new">Choisir une image</span>
                 <span class="fileupload-exists">Modifier</span>
-                <input type="file" class="default"></span>
+                <input type="file" name="img_4" class="default"></span>
                 <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Enlever</a>
               </div>
             </div>
@@ -446,7 +473,7 @@
 
 
 
-          <button type="submit" name="submit" id="submitButton" title="Click here to submit your message!" class="btn btn-success pull-right">Enregistrer</button>
+          <button type="submit" id="submitButton" title="Click here to submit your message!" class="btn btn-success pull-right">Enregistrer</button>
           <br>
         </form>
 

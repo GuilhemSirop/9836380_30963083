@@ -75,6 +75,45 @@ function get_users_en_attente(){
   return $array;
 }
 
+function get_id_before_action($table){
+  $query = "SELECT  max(id) as 'idmax' FROM $table";
+  $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+  $array = $result->fetch();
+  return $array;
+}
+
+public function get_file_ext($file)
+	{
+		$ext = pathinfo($file, PATHINFO_EXTENSION);
+		return $ext;
+	}
+
+public function upload($index,$destination,$maxsize=FALSE,$extensions=FALSE)
+{
+   //Test1: fichier correctement uploadé
+     if (!isset($_FILES[$index]) OR $_FILES[$index]['error'] > 0) return FALSE;
+   //Test2: taille limite
+     if ($maxsize !== FALSE AND $_FILES[$index]['size'] > $maxsize) return FALSE;
+   //Test3: extension
+     $ext = substr(strrchr($_FILES[$index]['name'],'.'),1);
+     if ($extensions !== FALSE AND !in_array($ext,$extensions)) return FALSE;
+   //Déplacement
+
+     return move_uploaded_file($_FILES[$index]['tmp_name'],$destination);
+
+}
+
+
+public function add_event($id_evenement_actuel,$nom,$description1,$description2,$nom_img_news,$domaine,$date_debut_ev,$date_fin_ev,$heure_debut_ev,$heure_fin_ev,$date_debut_res,$date_fin_res,$heure_debut_res,$heure_fin_res,$nbentrees,$prix_particulier,$prix_entreprise,$prix_comite) {
+
+
+     echo $query = "INSERT INTO Evenements(id,nom_event,img_newsletter,presentation_event,description_event,id_domaine,date_debut,date_fin,heure_debut,heure_fin,date_debut_res,date_fin_res,heure_debut_res,heure_fin_res,nb_places,prix_particulier,prix_entreprise,prix_comite,date_creation,actif_event) VALUES (\"$id_evenement_actuel\",\"$nom\",\"$nom_img_news\",\"$description1\",\"$description2\",\"$domaine\",\"$date_debut_ev\",\"$date_fin_ev\",\"$heure_debut_ev\",\"$heure_fin_ev\",\"$date_debut_res\",\"$date_fin_res\",\"$heure_debut_res\",\"$heure_fin_res\",\"$nbentrees\",\"$prix_particulier\",\"$prix_entreprise\",\"$prix_comite\",now(),1 ); ";
+
+    $result = mod_actions::$monPDO->query($query) or die ("0");
+
+
+}
+
 public function add_user($type_user,$nom,$prenom,$mdp,$adresse,$cp,$ville,$tel1,$tel2,$mail,$newsletter,$com_visible,$com_masque,$etat_user,$siret,$raison_sociale,$comite) {
 
   if ($type_user == "particulier") {
@@ -112,10 +151,21 @@ if ($type_user == "commercial" || $type_user == "comptable" || $type_user == "te
     $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
 
 }
+// A EXECUTER UNIQUEMENT LORSQU'ON AJOUTE UN UTILISATEUR
+ function add_event_theme($idtheme,$id_event) {
+    echo $query = "INSERT INTO Evenements_Themes(id_theme,id) VALUES (\"$idtheme\",\"$id_event\" ); ";
+
+    $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+
+}
 
 
 function dateToFr($date){
   $date=date("d-m-Y", strtotime($date));
+  return $date;
+}
+function dateToEn($date){
+  $date=date("Y-m-d", strtotime($date));
   return $date;
 }
 
@@ -187,7 +237,7 @@ function create($table, $post){
 			$i++;
 		}
 	}
-  
+
 	$i = 0;
 	while (!empty($res[$i])){
 		if (self::is_in_table($field, 'Field', $res[$i]['key']) && $res[$i]['key'] != 'id'){

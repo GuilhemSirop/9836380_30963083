@@ -23,6 +23,11 @@
 
         break;
       }
+			case 'add_new_event': {
+        include ("controleurs/c_gestion_events_actions.php");
+
+        break;
+      }
 			// lorsqu'on clique sur EVENEMENTS -> UN EVENEMENT
       case 'fiche_event': {
 				// Si l'id de l'événement est renseigné
