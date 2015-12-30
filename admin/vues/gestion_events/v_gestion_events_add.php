@@ -470,6 +470,8 @@
 <!-- CELUI CI SE TROUVE DANS UNE SPAN 6 AUSSI -->
 <?php include ('vues/gestion_events/v_gestion_events_themes.php'); ?>
 
+<?php include ('vues/gestion_events/v_gestion_events_domaines_activites.php'); ?>
+
 
 <!-- END ROW FLUID-->
 </div>

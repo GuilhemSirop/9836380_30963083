@@ -89,4 +89,46 @@
 				break;
 			}
 
-    }
+
+						case 'add_a_domaine': {
+
+							if (!empty($_POST['nom_domaine'])){
+								$titre=htmlspecialchars($_POST['nom_domaine']);
+								//$titre=strtr($titre);
+								// Si le titre est formé uniquement de bons caractère
+								if(preg_match('#^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]*$#', $titre)) {
+
+									$titre_existant=$connexion->compare_value_table("Domaines_Activites","nom_domaine",$titre);
+									if ($titre_existant['result'] == 0) {
+										$ajout_domaine=$connexion->create("Domaines_Activites",$_POST);
+
+										//var_dump($ajout_theme);
+										$success_domaine= "Le Domaine d'activité à été correctement ajouter !";
+										//$ajout_theme=$connexion->create("Themes","nom_theme",$titre);
+										include('vues/gestion_events/v_gestion_events_add.php');
+										//include('vues/gestion_users/v_gestion_users_add.php');
+									}
+									else {
+										$erreur_domaine= "Ce nom est déjà utilisé !";
+										include('vues/gestion_events/v_gestion_events_add.php');
+									}
+
+								}
+								else {
+
+									$erreur_domaine= "Seul les caractères alpha-numérique et le _ sont acceptés !";
+									include('vues/gestion_events/v_gestion_events_add.php');
+									//Si tout est OK on enrégistre le pseudo
+
+								}
+
+							}
+
+							else {
+								$erreur_domaine= "Le nom est vide !";
+								include('vues/gestion_events/v_gestion_events_add.php');
+							}
+							break;
+						}
+
+		}

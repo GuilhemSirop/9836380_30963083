@@ -187,7 +187,7 @@ function create($table, $post){
 			$i++;
 		}
 	}
-  echo "coucou";
+  
 	$i = 0;
 	while (!empty($res[$i])){
 		if (self::is_in_table($field, 'Field', $res[$i]['key']) && $res[$i]['key'] != 'id'){

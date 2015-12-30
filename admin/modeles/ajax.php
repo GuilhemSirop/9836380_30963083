@@ -134,6 +134,41 @@ break;
     break;
   }
 
+  case 'delete_domaine': {
+    $iddomaine = $_POST['firstname'];
+    $requete = "DELETE FROM Domaines_Activites where id_domaine=".$iddomaine."; ";
+    $query=mysql_query($requete) or die('0');
+
+    if(mysql_affected_rows()>0){
+      echo "1";
+    }else{
+      echo "0";
+    }
+    break;
+  }
+
+  case 'update_domaine': {
+    $iddomaine = $_POST['firstname'];
+    $nomdomaine =  utf8_decode($_POST['fnomdomaine']);
+    if(preg_match('#^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]*$#', $_POST['fnomdomaine'])){
+      $requete = "update Domaines_Activites set nom_domaine=\"$nomdomaine\" where id_domaine=\"$iddomaine\";";
+      $query=mysql_query($requete) or die('0');
+      if(mysql_affected_rows()>0){
+        echo "1";
+      }else{
+        echo "0";
+      }
+
+    }
+    else {
+      echo "0";
+    }
+
+
+
+    break;
+  }
+
 
 }
 
