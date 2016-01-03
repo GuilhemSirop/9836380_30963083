@@ -23,7 +23,7 @@ function delete_theme(id,nom) {
     },
     function(data, textStatus){
       if(data == 1){
-        swal("Supprimé !", "Le Thème a bien été supprimé!", "success");
+        swal("Supprimé !", "Le Thème a bien été supprimé! \n Vous allez être redirigé...", "success");
         setTimeout(function(){
           location.reload();
         },1000);
@@ -46,7 +46,7 @@ function update_theme(id,nom) {
     showCancelButton: true,
     closeOnConfirm: false,
     animation: "slide-from-top",
-    inputPlaceholder: "Ex: +262 6 92 123 123",
+    inputPlaceholder: "Ex: Musique...",
     // JSON
     inputValue: nom },
     function(inputValue){
@@ -69,7 +69,7 @@ function update_theme(id,nom) {
           },
           function(data, textStatus){
             if(data == 1){
-              swal("Modifié !", "Le Thème a bien été modifié!", "success");
+              swal("Modifié !", "Le Thème a bien été modifié! \n Vous allez être redirigé...", "success");
               setTimeout(function(){
                 location.reload();
               },1000);

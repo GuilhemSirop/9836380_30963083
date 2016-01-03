@@ -95,6 +95,7 @@
               <h3 class="titreblock center">Informations Générales</h3>
               <p>(<strong style="color:red">*</strong>) Veuillez renseigner tous les champs mentionnés par cette indication. </p>
 
+
               <div class="center">
               <div class="controls">
                 <div class="input-prepend">
@@ -103,6 +104,27 @@
               </div>
 
             </div>
+
+              <div class="control-group center">
+                <label class="control-label"><h4>Image Principale<strong style="color:red">*</strong> : </h4></label>
+                <div class="controls">
+                  <div data-provides="fileupload" class="fileupload fileupload-new">
+                    <div style="width: 200px; height: 150px;" class="fileupload-new thumbnail">
+                      <img alt="" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image">
+                    </div>
+                    <div style="max-width: 200px; max-height: 150px; line-height: 20px;" class="fileupload-preview fileupload-exists thumbnail"></div>
+                    <div>
+                      <span class="btn btn-file"><span class="fileupload-new">Choisir une image</span>
+                      <span class="fileupload-exists">Modifier</span>
+                      <input type="file" name="img_principale" >
+                    </span>
+                      <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Enlever</a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
             <h3>Description de l'événement<strong style="color:red">*</strong> : </h3>
             <p> *Correspond au texte présent sur la page de l'évènement</p>
             <textarea id="event_description" name="description_1" style=" height: 100%; width: 100%;"></textarea>
@@ -172,6 +194,26 @@
           </div>
 
 
+
+          <hr>
+
+          <h3>Client concerné<strong style="color:red">*</strong> : </h3>
+          <select data-live-search="true" name="client" title="Choisissez..." class="selectpicker">
+
+            <?php
+            $clients = $connexion->gets_without_option("Users");
+
+
+            foreach ($clients as $unclient) {
+              echo "
+              <option value=\"".$unclient['id_user']."\">".$unclient['nom_user']." ".$unclient['prenom_user']." - ".$unclient['mail_user']."</option>
+
+              ";
+            }
+            ?>
+
+
+          </select>
           <hr>
 
 

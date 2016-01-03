@@ -75,6 +75,24 @@ function get_users_en_attente(){
   return $array;
 }
 
+function get_events_actifs(){
+  $date_actuelle = date("Y-m-d");
+  $heure_actuelle = date("H:i:s");
+  $query = "SELECT  * FROM Evenements  WHERE date_fin > \"$date_actuelle\" AND heure_fin > \"$heure_actuelle\" ;";
+  $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+  $array = $result->fetchall();
+  return $array;
+}
+
+function get_events_termines(){
+  $date_actuelle = date("Y-m-d");
+  $heure_actuelle = date("H:i:s");
+  $query = "SELECT  * FROM Evenements  WHERE date_fin <= \"$date_actuelle\" AND heure_fin <= \"$heure_actuelle\" ;";
+  $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
+  $array = $result->fetchall();
+  return $array;
+}
+
 function get_id_before_action($table){
   $query = "SELECT  max(id) as 'idmax' FROM $table";
   $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
@@ -104,12 +122,14 @@ public function upload($index,$destination,$maxsize=FALSE,$extensions=FALSE)
 }
 
 
-public function add_event($id_evenement_actuel,$nom,$description1,$description2,$nom_img_news,$domaine,$date_debut_ev,$date_fin_ev,$heure_debut_ev,$heure_fin_ev,$date_debut_res,$date_fin_res,$heure_debut_res,$heure_fin_res,$nbentrees,$prix_particulier,$prix_entreprise,$prix_comite) {
+public function add_event($id_evenement_actuel,$client,$nom,$description1,$description2,$nom_img_principale,$nom_img_news,$domaine,$date_debut_ev,$date_fin_ev,$heure_debut_ev,$heure_fin_ev,$date_debut_res,$date_fin_res,$heure_debut_res,$heure_fin_res,$nbentrees,$prix_particulier,$prix_entreprise,$prix_comite) {
 
 
-     echo $query = "INSERT INTO Evenements(id,nom_event,img_newsletter,presentation_event,description_event,id_domaine,date_debut,date_fin,heure_debut,heure_fin,date_debut_res,date_fin_res,heure_debut_res,heure_fin_res,nb_places,prix_particulier,prix_entreprise,prix_comite,date_creation,actif_event) VALUES (\"$id_evenement_actuel\",\"$nom\",\"$nom_img_news\",\"$description1\",\"$description2\",\"$domaine\",\"$date_debut_ev\",\"$date_fin_ev\",\"$heure_debut_ev\",\"$heure_fin_ev\",\"$date_debut_res\",\"$date_fin_res\",\"$heure_debut_res\",\"$heure_fin_res\",\"$nbentrees\",\"$prix_particulier\",\"$prix_entreprise\",\"$prix_comite\",now(),1 ); ";
+     echo $query = "INSERT INTO Evenements(id,id_user,nom_event,img_principale,img_newsletter,presentation_event,description_event,id_domaine,date_debut,date_fin,heure_debut,heure_fin,date_debut_res,date_fin_res,heure_debut_res,heure_fin_res,nb_places,prix_particulier,prix_entreprise,prix_comite,date_creation,actif_event) VALUES (\"$id_evenement_actuel\",\"$client\",\"$nom\",\"$nom_img_principale\",\"$nom_img_news\",\"$description1\",\"$description2\",\"$domaine\",\"$date_debut_ev\",\"$date_fin_ev\",\"$heure_debut_ev\",\"$heure_fin_ev\",\"$date_debut_res\",\"$date_fin_res\",\"$heure_debut_res\",\"$heure_fin_res\",\"$nbentrees\",\"$prix_particulier\",\"$prix_entreprise\",\"$prix_comite\",now(),1 ); ";
 
-    $result = mod_actions::$monPDO->query($query) or die ("0");
+    $result = mod_actions::$monPDO->query($query) or die (FALSE);
+    return $result;
+
 
 
 }

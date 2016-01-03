@@ -23,7 +23,7 @@ function delete_domaine(id,nom) {
     },
     function(data, textStatus){
       if(data == 1){
-        swal("Supprimé !", "Le Domaine d'activité a bien été supprimé!", "success");
+        swal("Supprimé !", "Le Domaine d'activité a bien été supprimé ! \n Vous allez être redirigé...", "success");
         setTimeout(function(){
           location.reload();
         },1000);
@@ -68,7 +68,7 @@ function update_domaine(id,nom) {
           },
           function(data, textStatus){
             if(data == 1){
-              swal("Modifié !", "Le Domaine d'activité a bien été modifié!", "success");
+              swal("Modifié !", "Le Domaine d'activité a bien été modifié ! \n Vous allez être redirigé...", "success");
               setTimeout(function(){
                 location.reload();
               },1000);
