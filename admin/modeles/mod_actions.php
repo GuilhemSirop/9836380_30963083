@@ -78,7 +78,7 @@ function get_users_en_attente(){
 function get_events_actifs(){
   $date_actuelle = date("Y-m-d");
   $heure_actuelle = date("H:i:s");
-  $query = "SELECT  * FROM Evenements  WHERE date_fin > \"$date_actuelle\" AND heure_fin > \"$heure_actuelle\" ;";
+  $query = "SELECT  * FROM Evenements  WHERE date_fin > \"$date_actuelle\"  ;";
   $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
   $array = $result->fetchall();
   return $array;
@@ -87,7 +87,7 @@ function get_events_actifs(){
 function get_events_termines(){
   $date_actuelle = date("Y-m-d");
   $heure_actuelle = date("H:i:s");
-  $query = "SELECT  * FROM Evenements  WHERE date_fin <= \"$date_actuelle\" AND heure_fin <= \"$heure_actuelle\" ;";
+  $query = "SELECT  * FROM Evenements  WHERE date_fin <= \"$date_actuelle\" ;";
   $result = mod_actions::$monPDO->query($query) or die ("erreur mysql");
   $array = $result->fetchall();
   return $array;
